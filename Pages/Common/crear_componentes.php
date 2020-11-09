@@ -25,7 +25,7 @@ function caja_ciudades ($idciudadini_z) {
 
 function caja_tipovehiculos ($idtipovehiculoini_z) {
   $componente_z = "";
-  $componente_z = " <div class=\"row\"><div class=\"col-sm-6\">
+  $componente_z = " <div class=\"row\"><div class=\"col-sm-3\">
   <label for=\"tipovehiculo\">Tipo de Vehiculo:</label></div>
   <div class=\"col-sm-6\">
   <select  class=\"form-control\" 
@@ -146,8 +146,9 @@ function caja_zonas ($idzona_z) {
   <select  class=\"form-control\" 
   id=\"idzona\" name=\"idzona\"
   value = \"" . $idzona_z . "\" >";
-  
+    $url = "../../Common/busca_datos.php?modo=BUSCA_ZONAS";
     $zonas_z = json_decode(busca_zonas());
+  
     foreach ($zonas_z as $mizona_z) {
       $componente_z = $componente_z . "<option value = \"" . $mizona_z->idzona . "\"";
       if ($mizona_z->idzona == $idzona_z) {

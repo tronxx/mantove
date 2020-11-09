@@ -20,12 +20,6 @@
 <body>
 	
 <?php 
-	//carga la plantilla con la header y el footer
-    $archivo_z = "../Common/busca_datos.php";
-	if(!file_exists($archivo_z)) {
-		$archivo_z = "Pages/Common/busca_datos.php";
-	}
-    require_once($archivo_z);	
     $archivo_z = "../Common/header.php";
 	if(!file_exists($archivo_z)) {
 		$archivo_z = "Pages/Common/header.php";

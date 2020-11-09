@@ -1,8 +1,8 @@
 <?php
 	$modo_z = "";
+    require_once('../../php/ejecuta_query.php');
 	if(isset($_GET['modo'])) {
 		$modo_z = $_GET['modo'];
-        require_once('../../php/ejecuta_query.php');
         if(isset($_GET['idvehiculo'])) {
             $idvehiculo_z = $_GET['idvehiculo'];
         }
@@ -269,19 +269,5 @@
 		return (json_encode($encode));
     }
 
-    function checa_sesion() {
-        $status = session_status();
-        if($status == PHP_SESSION_NONE){
-            echo "No Tengo Sesion Activa<br>";
-          //There is no active session
-          $archivo_z = "../Login/login.php";
-          if(!file_exists($archivo_z)) {
-              $archivo_z = "Pages/Login/login.php";
-          }
-          $abrelogin_z = "location: " . $archivo_z;
-      
-          //header($abrelogin_z);
-        }
-    }
     
 ?>

@@ -20,7 +20,14 @@
 <body>
 
 <?php 
-	//carga la plantilla con la header y el footer
+	session_start();
+    $archivo_z = "../Common/checa_sesion.php";
+	if(!file_exists($archivo_z)) {
+		$archivo_z = "Pages/Common/checa_sesion.php";
+	}
+    require_once($archivo_z);	
+	checa_sesion();
+		//carga la plantilla con la header y el footer
     $archivo_z = "../Common/header.php";
 	if(!file_exists($archivo_z)) {
 		$archivo_z = "Pages/Common/header.php";
@@ -31,7 +38,6 @@
 		$archivo_z = "Pages/Common/busca_datos.php";
 	}
     require_once($archivo_z);	
-    checa_sesion();
 	require_once('servicios_choferes.php');	
     $choferes_z = json_decode(busca_choferes());
 

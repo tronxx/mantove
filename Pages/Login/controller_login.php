@@ -25,7 +25,15 @@
 		// si el id del objeto retornado no es null, quiere decir que encontro un registro en la base
 		if ($usuario->getId()!=NULL) {
 			$_SESSION['usuario']=$usuario; //si el usuario se encuentra, crea la sesión de usuario
-			header('Location: ../../main.php'); //envia a la página que simula la cuenta
+			alertas_login("Ya inicie Sesion:" .$usuario->getNombre());
+			$status = session_status();
+			if($status == PHP_SESSION_NONE){
+               echo "No Tengo Sesion Activa<br>" . $status . " - " . PHP_SESSION_NONE;
+            } else {
+               echo "Ahora ya Tengo Sesion Activa<br>" . $status . " - " . PHP_SESSION_NONE;
+            }
+
+			header('Location: ../../main.php'); //envia a la página Principal
 		}else{
 			header('Location: error.php?mensaje=Tus nombre de usuario o clave son incorrectos'); // cuando los datos son incorrectos envia a la página de error
 		}
@@ -33,4 +41,12 @@
 		header('Location: ../../index.php');
 		unset($_SESSION['usuario']); //destruye la sesión
 	}
+
+	function alertas_login($mensaje_z) {
+		echo "<script>";
+		echo "alert(' . $mensaje_z . ');";
+		//echo "window.location = './zonas.php';";
+		echo "</script>";
+	}
+
 ?>

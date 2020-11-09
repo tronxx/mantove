@@ -18,6 +18,14 @@
 </head>
 
 <?php 
+    // Verifico que haya iniciado sesion el usuario
+	session_start();
+    $archivo_z = "../Common/checa_sesion.php";
+	if(!file_exists($archivo_z)) {
+		$archivo_z = "Pages/Common/checa_sesion.php";
+	}
+    require_once($archivo_z);	
+	checa_sesion();
 	//carga la plantilla con la header y el footer
     $archivo_z = "../Common/header.php";
 	if(!file_exists($archivo_z)) {

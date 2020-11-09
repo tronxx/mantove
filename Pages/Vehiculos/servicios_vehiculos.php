@@ -30,9 +30,10 @@
 	$cia_z = 0;
 	$idtipovehiculo_z = 0;
 
+    
+    require_once('../../php/ejecuta_query.php');
 	if(isset($_POST['modo'])) {
 		$modo_z = $_POST['modo'];
-        require_once('../../php/ejecuta_query.php');
         if(isset($_POST['idvehiculo'])) {
             $idvehiculo_z = $_POST['idvehiculo'];
         }
@@ -128,13 +129,9 @@
 	} elseif (isset($_POST['cancelar'])) {
 			// SI es cancelar me regreso a la pagina principal
 			echo "<script>";
-			echo "window.location = '../../index.php?menu=vehiculos';";
+			echo "window.location = 'vehiculos.php';";
 			echo "</script>";
 	}
-	else {
-        require_once('php/ejecuta_query.php');
-
-    }
 
 	function busca_vehiculos() {
 		$conn=conecta();
@@ -143,10 +140,11 @@
 		  a.tacacu,a.nvohasta,a.nvousa,a.tipogas,a.caractm,a.tipllanta,
 		  a.bateria,a.polseg,a.venpol,a.idchofer,a.camtac,a.kmtcamtac,a.zona,
 		  a.idtipovehiculo, a.fecamtac,a.cia,
-		  c.descripcion as descritipoveh,
+		  e.descripcion as descritipoveh,
 		  d.codigo as cvechofer
 		  from vehiculos a join marcas b on a.idmarcaveh = b.idmarca
 		  join combustibles c on a.tipogas = c.idcombustible
+		  join tipovehiculos e on a.idtipovehiculo = e.idTipovehiculo
 		  join choferes d on a.idchofer = d.idchofer order by a.codigo";
 		$rs = mysqli_query($conn,$sql);
 		$encode = array();
@@ -213,7 +211,7 @@
 			echo "Error: No se pudo agregar registro";
 		};
 		mysqli_close($conn);
-		//alertas_vehiculos("Vehiculo Agregado");
+		alertas_vehiculos("Vehiculo Agregado");
 		return (0);
 	}
 
@@ -243,19 +241,19 @@
 		  $nvousa_z, $idtipogas_z, $caractm_z, $tipllanta_z, $bateria_z,
 		  $polseg_z, $venpol_z, $idchofer_z, $camtac_z, $kmtcamtac_z,
 		  $idzona_z, $fecamtac_z,  $idtipoveh_z, $idvehiculo_z);
-		echo $sql;
+		//echo $sql;
 		if ( ! $rs = mysqli_query($conn,$sql) ) {
 			echo "Error: No se pudo agregar registro";
 		};
 		mysqli_close($conn);
-		//alertas_vehiculos("Vehiculo Agregado");
+		alertas_vehiculos("Vehiculo Modificado");
 		return (0);
 	}
 
 	function elimina_vehiculos($idvehiculo_z) {
 		$conn=conecta();
 		$sql =  sprintf("delete from vehiculos  where idvehiculo = %s", $idvehiculo_z);
-		echo "Sql:" . $sql;
+		//echo "Sql:" . $sql;
 		if ( ! $rs = mysqli_query($conn,$sql) ) {
 			echo "Error: No se pudo eliminar el registro";
 		};
@@ -267,7 +265,7 @@
 	function alertas_vehiculos($mensaje_z) {
 		echo "<script>";
 		echo "alert(' . $mensaje_z . ');";
-		echo "window.location = '../../index.php?menu=vehiculos';";
+		echo "window.location = './vehiculos.php';";
 		echo "</script>";
 	}
 

@@ -4,5 +4,6 @@
 	if(!file_exists($archivo_z)) {
 		$archivo_z = "Pages/Login/login.php";
 	}
-	require_once($archivo_z);	
+		header("location: " . $archivo_z);
+	//require_once($archivo_z);	
  ?>

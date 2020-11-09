@@ -22,10 +22,10 @@
                       {"titulo":"Marcas de Vehiculos","destino":"../Marcas/marcas.php"},
                       {"titulo":"Tipos de pago","destino":"../Tipospago/tipospago.php"},
                       {"titulo":"Tipos de Vehiculos","destino":"../Tipovehiculos/tipovehiculos.php"},
-                      {"titulo":"Vehiculos","destino":"?menu=vehiculos"},
+                      {"titulo":"Vehiculos","destino":"../Vehiculos/vehiculos.php"},
                       {"titulo":"Definicion Servicios Mantenimiento","destino":"../Mantenimientos/mantenimientos.php"},
-                      {"titulo":"Captura Polizas de Gasolina","destino":"?menu=poligas"},
-                      {"titulo":"Captura Polizas de Servicios","destino":"?menu=polser"}
+                      {"titulo":"Captura Polizas de Gasolina","destino":"../Poligas/poligas.php"},
+                      {"titulo":"Captura Polizas de Servicios","destino":"../Polser/polser.php"}
                  ]';
                  $mismenus_z =  json_decode($menus_z);
                  foreach ($mismenus_z as $mimenu_z) {

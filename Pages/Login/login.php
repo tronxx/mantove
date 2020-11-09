@@ -21,7 +21,7 @@
 		<h2>Login</h2>
 	</div>
 
-	<form class="w3-container" action="Pages/Login/controller_login.php" method="post">
+	<form class="w3-container" action="controller_login.php" method="post">
 		<p>
 			<label class="w3-label">
 				Usuario

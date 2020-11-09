@@ -18,25 +18,8 @@
 
 	<!-- Latest compiled JavaScript -->
 	<script src="../../bootstrap/js/bootstrap.min.js"></script>
-<script language="JavaScript" type="text/javascript">
-{
-  function getComboStatus(selectObject) {
-    var selector =  selectObject.value; 
-    switch(selector){
-      case "ACTIVO":
-        $("#fecbaj").prop('disabled', true);
-        $("#fecbaj").prop('hidden', true);
-        break;
-      case "BAJA":
-        $("#fecbaj").prop('disabled', false);
-        $("#fecbaj").prop('hidden', false);
-        break;
-    }
-  }
+<script src="vehiculos.js" type="text/javascript"></script>
 
-}
-//-->
-</script>
 
 <head>
 <meta charset="utf-8">
@@ -107,7 +90,7 @@
 <tr>
 <td>
 <div class="container">
-<form class="form-inline" role="form" name="edvehiculos" action="../Vehiculos/servicios_vehiculos.php" method="post" >
+<form class="form-inline" role="form" name="edvehiculos" action="servicios_vehiculos.php" method="post" >
   <div class="form-group">
   <?php 
     carga_datos_vehiculo($idvehiculo_z);
@@ -132,14 +115,16 @@
     echo input_en_row("nvohasta", "number", "Se considera Nuevo hasta el Kilometraje:", $nvohasta_z, "10", ""); 
     echo caja_tipovehiculos ($idtipoveh_z);
     echo caja_tipocombustibles ($idcombustible_z, "");
-    $funcion_z = "getComboStatus(this)";
+    $funcion_z = "onchange=\"getComboStatus(this)\"";
     echo opciones_en_list("status", array("ACTIVO", "BAJA"), "Status:", $status_z, $funcion_z); 
     echo input_en_row("fecbaj", "date", "Fecha Baja:", $baja_z, "30", ""); 
   ?>
+  </div>
+  <div class="modal-footer">
+
     <input type ="hidden" name="idvehiculo" value="<?php echo $idvehiculo_z; ?>" >
     <button type="submit" name="modo" value="<?php echo $accionok_z; ?>" class="btn btn-primary btn-lg">Aceptar</button>
-    <button type="submit" name="cancelar" class="btn btn-danger" value="cancelar" class="btn btn-primary btn-lg">Cancelar</button>
-   </div>
+    <button type="submit" name="cancelar" value="cancelar" class="btn btn-danger btn-lg">Cancelar</button>
    </div>
 </div>
 </form>

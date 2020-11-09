@@ -34,7 +34,19 @@
 	    // En Cualquier otro caso me regreso al Main
 	}
 
-  
+    function busca_zonas() {
+		$conn=conecta();
+		$sql = "select idzona, numero, zona from zonas order by numero";
+		$rs = mysqli_query($conn,$sql);
+		$encode = array();
+		while ($row =  mysqli_fetch_array($rs)) {
+			  $encode[] = $row;
+            
+		}
+		mysqli_close($conn);
+		return (json_encode($encode));
+    }
+
 	function agrega_zona($numero_z, $zona_z) {
 		$conn=conecta();
 		$idzona_z = 0;

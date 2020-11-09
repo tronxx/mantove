@@ -64,11 +64,9 @@
   ?>
   <input type ="hidden" name="idciudad" value="<?php echo $idciudad_z; ?>" >
   <br>
-  <div class="form-group">
-    <div class="col-md-12 text-center">
+  <div class="modal-footer">
     <button type="submit" name="modo" value="<?php echo $accionok_z; ?>" class="btn btn-primary btn-lg">Aceptar</button>
-    <button type="submit" name="cancelar" class="btn btn-danger" value="cancelar" class="btn btn-primary btn-lg">Cancelar</button>
-  </div>
+    <button type="submit" name="cancelar" value="cancelar" class="btn btn-danger btn-lg">Cancelar</button>
   </div>
 </form>
 </td>
