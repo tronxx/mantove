@@ -73,9 +73,10 @@
 <div class="container">
 <form class="form-inline" role="form"  action="../Combustibles/servicios_combustibles.php" method="post" >
   <?php
+      $ff_z = 'min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency"';
       echo input_en_row("combustible", "text", "Combustible:", $combustible_z, "10", ""); 
-      echo input_en_row("piva", "number", "Tasa de Iva:", $piva_z, "10", ""); 
-      echo input_en_row("precioxlit", "number", "Precio x Litro:", $precioxlit_z, "10", ""); 
+      echo input_en_row("piva", "number", "Tasa de Iva:", $piva_z, "10", $ff_z);
+      echo input_en_row("precioxlit", "number", "Precio x Litro:", $precioxlit_z, "10", $ff_z); 
       echo input_en_row("fecha", "date", "Fecha:", $fecha_z, "30", ""); 
 
   ?>

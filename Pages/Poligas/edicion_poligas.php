@@ -62,7 +62,7 @@
 <tr>
 <td>
 <div class="container">
-<form class="form-inline" role="form"  action="../Poligas/servicios_poligas.php" method="post" >
+<form class="form-inline" role="form"  action="servicios_poligas.php" method="post" >
   <div class="form-group">
     <div class="container">
     <?php 
@@ -76,7 +76,7 @@
   <div class="form-group">
     <div class="col-md-12 text-center">
     <button type="submit" name="modo" value="<?php echo $accionok_z; ?>" class="btn btn-primary btn-lg">Aceptar</button>
-    <button type="submit" name="cancelar" class="btn btn-danger" value="cancelar" class="btn btn-primary btn-lg">Cancelar</button>
+    <button type="submit" name="cancelar" value="cancelar" class="btn btn-danger btn-lg">Cancelar</button>
   </div>
   </div>
 </form>

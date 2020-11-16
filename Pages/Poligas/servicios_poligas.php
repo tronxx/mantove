@@ -17,6 +17,12 @@
 	if(isset($_POST['fecha'])) {
         $fecha_z = $_POST['fecha'];
     }
+	if(isset($_POST['FechaInicial'])) {
+        $fechini_z = $_POST['FechaInicial'];
+    }
+	if(isset($_POST['FechaFinal'])) {
+        $fechfin_z = $_POST['FechaFinal'];
+    }
 	if(isset($_POST['almacen'])) {
         $idalmacen_z = $_POST['almacen'];
     }
@@ -36,16 +42,17 @@
 	} elseif (isset($_POST['cancelar'])) {
 			// SI es cancelar me regreso a la pagina principal
 			echo "<script>";
-			echo "window.location = '../../index.php?menu=poligas';";
+			echo "window.location = 'poligas.php';";
 			echo "</script>";
 	}
-	function busca_poligas() {
+
+	function busca_poligas($fechini_z, $fechfin_z) {
 		$conn=conecta();
-		$sql = "select a.idpoligas, a.idalmacen, a.fecha, a.status, a.idusuario, a.importe, 
+		$sql = sprintf("select a.idpoligas, a.idalmacen, a.fecha, a.status, a.idusuario, a.importe, 
 		  a.iva, a.total, a.promkml, a.litros, a.kmts, a.cia, b.clave, b.nombre 
 		  from poligas a join almacenes b on a.IDALMACEN = b.idAlmacen 
-		  where a.fecha between DATE_ADD(CURDATE(), INTERVAL -1 MONTH) and curdate()
-		  order by fecha desc, b.clave";
+		  where a.fecha between '%s' and '%s'
+		  order by fecha desc, b.clave",$fechini_z, $fechfin_z);
 		$rs = mysqli_query($conn,$sql);
 		$encode = array();
 		while ($row =  mysqli_fetch_array($rs)) {

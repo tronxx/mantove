@@ -27,7 +27,12 @@
     require_once($archivo_z);	
 	checa_sesion();
 	//carga la plantilla con la header y el footer
-	require_once($archivo_z);	
+	//carga la plantilla con la header y el footer
+    $archivo_z = "../Common/header.php";
+	if(!file_exists($archivo_z)) {
+		$archivo_z = "Pages/Common/header.php";
+	}
+    require_once($archivo_z);	
 
 	require_once('servicios_combustibles.php');	
     $combustibles_z = json_decode(busca_combustibles());
@@ -61,10 +66,12 @@
 			<tbody>
             <?php
   		       foreach ($combustibles_z as $micombus_z) {
-				   echo "<tr>";
+  		       	  $precioxlit_z = number_format( $micombus_z->precioxlit,   2 );   
+
+				  echo "<tr>";
 				  echo "<td>" . $micombus_z->descripcion   . "</td>";
 				  echo "<td>" . $micombus_z->iva   . "</td>";
-				  echo "<td>" . $micombus_z->precioxlit   . "</td>";
+				  echo "<td>" . $precioxlit_z   . "</td>";
 				  echo "<td>" . $micombus_z->fecha   . "</td>";
 				  $cadena_z = boton_modificar($micombus_z->idcombustible, 
 				     $micombus_z->descripcion, $micombus_z->iva, $micombus_z->precioxlit,

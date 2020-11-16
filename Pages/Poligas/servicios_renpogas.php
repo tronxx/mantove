@@ -3,7 +3,7 @@
 	$idpoligas_z = 0;
 	$idrenpogas_z = 0;
 	$piva_z = 0;
-	$fecha_z = date("Y") . "/". date("m") . "/" . date("d");
+	$fecha_z =  date('Y/m/d');
 	$almacen_z = "";
 	$archivo_z = "../../php/ejecuta_query.php";
 	if(!file_exists($archivo_z)) {
@@ -38,9 +38,7 @@
 
 	} elseif (isset($_POST['cancelar'])) {
 			// SI es cancelar me regreso a la pagina principal
-			echo "<script>";
-			echo "window.location = '../../index.php?menu=poligas';";
-			echo "</script>";
+		manda_a_renpogas($idpoligas_z) ;
 	}
 
 	function busca_renpogas($idpoligas_z) {
@@ -135,7 +133,12 @@
 		echo "<script>";
 		echo "alert(' . $mensaje_z . ');";
 		echo "</script>";
-		$fecha_z = "2018-07-01";
+		manda_a_renpogas($idpoligas_z);
+		
+	}
+
+	function manda_a_renpogas($idpoligas_z) {
+		$fecha_z = date('Y-m-d');
 		$cadena_z = "<form action=\"renpogas.php\" name=\"renpogas\" id=\"renpogas\" method=\"post\">";
 		$cadena_z = $cadena_z . "<input type =\"hidden\" name=\"idpoligas\" value=\"". $idpoligas_z  . "\" >";
 		$cadena_z = $cadena_z . "<input type =\"hidden\" name=\"fecha\" value=\"". $fecha_z  . "\" >";
@@ -145,6 +148,6 @@
 		    document.renpogas.submit(); 
 		    </script>";
 		echo $cadena_z;
-		
+
 	}
 ?>

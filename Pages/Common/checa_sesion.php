@@ -1,0 +1,15 @@
+<?php 
+    function checa_sesion() {
+        $status = session_status();
+        if($status == PHP_SESSION_NONE){
+            echo "No Tengo Sesion Activa<br>" . $status . " - " . PHP_SESSION_NONE;
+          //There is no active session
+          $archivo_z = "../Login/login.php";
+          if(!file_exists($archivo_z)) {
+              $archivo_z = "Pages/Login/login.php";
+          }
+          $abrelogin_z = "location: " . $archivo_z;
+          //header($abrelogin_z);
+        }
+    }
+?>

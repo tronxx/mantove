@@ -29,7 +29,7 @@
 	}
 	if(isset($_POST['cancelar'])) {
 		echo "<script>";
-		echo "window.location = '../../main.php?menu=almacenes';";
+		echo "window.location = 'almacenes.php';";
 		echo "</script>";
 	    // En Cualquier otro caso me regreso al Main
 	}

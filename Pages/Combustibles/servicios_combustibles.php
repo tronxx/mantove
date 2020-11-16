@@ -57,14 +57,14 @@
 		$conn=conecta();
 		$sql =  sprintf("insert into combustibles (descripcion, iva, idEstatus, precioxlit, fecha) 
           values ('%s', %s, 1, %s, '%s')",  $combustible_z, $piva_z, $precioxlit_z, $fecha_z);
-        echo $sql;
+        //echo $sql;
 		if ( ! $rs = mysqli_query($conn,$sql) ) {
 			echo "Error: No se pudo agregar registro";
 		};
 		$idcombustible_z = mysqli_insert_id($conn);
 		mysqli_close($conn);
 		agrega_cambio_precio_combustible($idcombustible_z, $piva_z, $precioxlit_z, $fecha_z);
-		//alertas_combustible("Combustible Agregado");
+		alertas_combustible("Combustible Agregado");
 		return (0);
 	}
 
@@ -78,7 +78,7 @@
 		} else {
    			$sql =  sprintf("update precioscombustible set precio=%s, fecha='%s' where (idcombustible = %s)", $precioxlit_z, $fecha_z, $idcombustible_z);
 		}
-		echo "<br>" .  $sql;
+		//echo "<br>" .  $sql;
 		if ( ! $rs = mysqli_query($conn,$sql) ) {
 			echo "Error: No se pudo agregar registro";
 		};
@@ -90,13 +90,13 @@
 		$conn=conecta();
 		$sql =  sprintf("update combustibles set descripcion='%s', iva=%s, fecha='%s', precioxlit = %s where idcombustible=%s", 
 		 $combustible_z, $piva_z, $fecha_z, $precioxlit_z, $idcombustible_z);
-		 echo $sql;
+		//echo $sql;
 		if ( ! $rs = mysqli_query($conn,$sql) ) {
 			echo "Error: No se pudo agregar registro";
 		};
 		mysqli_close($conn);
 		agrega_cambio_precio_combustible($idcombustible_z, $piva_z, $precioxlit_z, $fecha_z);
-		//alertas_combustible("Combustible Modificado");
+		alertas_combustible("Combustible Modificado");
 		return (0);
 	}
 
