@@ -14,6 +14,9 @@
 	if(isset($_POST['idpolser'])) {
         $idpolser_z = $_POST['idpolser'];
     }
+	if(isset($_POST['idrenposer'])) {
+        $idrenposer_z = $_POST['idrenposer'];
+    }
 	if(isset($_POST['fecha'])) {
         $fecha_z = $_POST['fecha'];
     }
@@ -23,24 +26,22 @@
     
 	if(isset($_POST['modo'])) {
 		$modo_z = $_POST['modo'];
+		// echo "Modo:" . $modo_z . "<br>";
         if($modo_z == 'Agregar_renposer_ok') {
             agrega_renposer($idpolser_z, $fecha_z);
         } 
-        if($modo_z == 'eliminar_ok') {
-            elimina_polser($idpolser_z);
+        if($modo_z == 'eliminar_renglon_ok') {
+            elimina_renposer($idrenposer_z);
         }
         if($modo_z == 'modificar_ok') {
             modifica_polser($idpolser_z, $poligas_z);
         }
-        if($modo_z == 'Cerrar_poligas_ok') {
+        if($modo_z == 'Cerrar_polser_ok') {
             cerrar_polser($idpolser_z, $poligas_z);
         }
 
 	} elseif (isset($_POST['cancelar'])) {
-			// SI es cancelar me regreso a la pagina principal
-			echo "<script>";
-			echo "window.location = '../../index.php?menu=polser';";
-			echo "</script>";
+		manda_a_renposer($idpolser_z);
 	}
 
 	function busca_renposer($idpolser_z) {
@@ -96,15 +97,19 @@
 		   $idpolser_z, $idvehiculo_z, $fecha_z, $conse_z, $idservmanto_z,
 		   $kilom_z, $edotoggle_z, $idtaller_z, $idobserv_z, $costo_z, 
 		   $idchofer_z, $cia_z, $observs_z);
-		   echo "<br> Renglones: " . $sql . "<br>";
-		$rs = mysqli_query($conn,$sql);
+		 //echo "<br> Renglones: " . $sql . "<br>";
+		if ( ! $rs = mysqli_query($conn,$sql) ) {
+		   alertas_renposer("Error. No se pudo agregar el movimiento", $idpolser_z);
+		}
 		$sql2_z = sprintf("update polser set total = total + %s
 		  where idpolser = %s",
 		  $costo_z, $idpolser_z);
-		  echo "<br> Poligas: " . $sql2_z . "<br>";
-		  $rs = mysqli_query($conn,$sql2_z);
+		//echo "<br> Poligas: " . $sql2_z . "<br>";
+		if ( ! $rs = mysqli_query($conn,$sql2_z) ) {
+		   alertas_renposer("Error. No se pudo agregar el movimiento", $idpolser_z);
+		}
 		mysqli_close($conn);
-		//alertas_renpoligas("Movimiento Agregado", $idpolser_z);
+		alertas_renposer("Movimiento Agregado", $idpolser_z);
 
 		//return (json_encode($encode));
     }
@@ -113,26 +118,58 @@
 		$conn=conecta();
 		$sql2_z = sprintf("update polser set status='C' where idpolser = %s", $idpolser_z);
 		  //echo "<br> Poligas: " . $sql2_z . "<br>";
-		  $rs = mysqli_query($conn,$sql2_z);
+		if ( ! $rs = mysqli_query($conn,$sql2_z) ) {
+		   alertas_renposer("Error. No se pudo Cerrar la Póliza", $idpolser_z);
+		}
+		mysqli_close($conn);
+		alertas_renposer("Poliza Cerrada", $idpolser_z);
+		//return (json_encode($encode));
+    }
+
+	function elimina_renposer($idrenposer_z, $idpolser_z) {
+		$costo_z = -1;
+		$conn=conecta();
+		$sql2_z = sprintf("delete from renposer where idrenposer = %s", $idrenposer_z);
+		  //echo "<br> Poligas: " . $sql2_z . "<br>";
+		if ( ! $rs = mysqli_query($conn,$sql2_z) ) {
+		   alertas_renposer("Error. No se pudo Eliminar el Movimiento", $idrenposer_z);
+		}
+		$sql2_z = sprintf("update polser set total = total - %s
+		  where idpolser = %s",
+		  $costo_z, $idpolser_z);
+		//echo "<br> Poligas: " . $sql2_z . "<br>";
+		if ( ! $rs = mysqli_query($conn,$sql2_z) ) {
+		   alertas_renposer("Error. No se pudo actualizar la Póliza", $idpolser_z);
+		}
+		mysqli_close($conn);
+		alertas_renposer("Movimiento Eliminado", $idrenposer_z);
+
+
 		mysqli_close($conn);
 		alertas_renposer("Poliza Cerrada", $idpolser_z);
 		//return (json_encode($encode));
     }
 
 	function alertas_renposer($mensaje_z, $idpolser_z) {
-		echo "<script>";
-		echo "alert(' . $mensaje_z . ');";
-		echo "</script>";
-		$fecha_z = "2018-07-01";
+		$alerta_z = "<script>";
+		$alerta_z = $alerta_z . "alert(' . $mensaje_z . ');";
+		$alerta_z = $alerta_z . "</script>";
+		echo $alerta_z;
+		manda_a_renposer($idpolser_z);
+	}
+
+	function manda_a_renposer($idpolser_z) {
+		$fecha_z = date('Y-m-d');
 		$cadena_z = "<form action=\"renposer.php\" name=\"renposer\" id=\"renposer\" method=\"post\">";
 		$cadena_z = $cadena_z . "<input type =\"hidden\" name=\"idpolser\" value=\"". $idpolser_z  . "\" >";
 		$cadena_z = $cadena_z . "<input type =\"hidden\" name=\"fecha\" value=\"". $fecha_z  . "\" >";
 		$cadena_z = $cadena_z . "<button type=\"submit\" class=\"btn btn-primary\"  name=\"modo\" value=\"modificar\" >Visualizar</button>";
 		$cadena_z = $cadena_z . "</form>";
 		$cadena_z = $cadena_z . "<script type=\"text/javascript\"> 
-		    document.renpogas.submit(); 
+		    document.renposer.submit(); 
 		    </script>";
 		echo $cadena_z;
 		
 	}
+
 ?>

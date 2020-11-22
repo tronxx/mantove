@@ -48,7 +48,7 @@
 	require_once($archivo_z);	
 	//carga la plantilla con la header y el footer
 	$poligas_z = "";
-	$idpoligas_z = 0;
+	$idpoligas_z = -1;
 	$piva_z = 16;
 	$statuspol_z  = "A";
 	$fecha_z = date("Y") . "/". date("m") . "/" . date("d");
@@ -63,14 +63,17 @@
 		$alm_z = $mipoligas_z->nombre;
 		$statuspol_z  = $mipoligas_z->status;
 	}
+	if($idpoligas_z == -1) {
+		alertas_poligas("Póliza Inválida");
+	}
  ?>
-<h1> Poliza de Gasolina </h1>
+<h1> Póliza de Gasolina </h1>
 
 <div class="table-responsive">
 <table class="table table-hover" border = "1">
 <tr>
 <th>
-<?php echo "Almacen:" . $alm_z . " Fecha:" . $fecha_z; ?>
+<?php echo "Almacen:" . $alm_z . " Fecha:" . $fecha_z ; ?>
 </th>
 </tr>
 </table>
@@ -84,7 +87,7 @@
 	if($statuspol_z == "A") {
     	$cadena_z = $cadena_z . '"edicion_renpogas.php"';
     } else {
-    	$cadena_z = $cadena_z . '"impripol.php"';
+    	$cadena_z = $cadena_z . '"impripol.php" target="blank" ';
     }
     $cadena_z = $cadena_z . ' method="post">';
 	$cadena_z = $cadena_z . "<input type =\"hidden\" name=\"idpoligas\" id=\"idpoligas\" value=\"". $idpoligas_z  . "\" >\n";
@@ -92,11 +95,11 @@
 	echo $cadena_z;
 	$cadena_z = "";
 	if($statuspol_z == "A") {
-		$cadena_z = $cadena_z . "<button type=\"submit\" class=\"btn btn-primary\" name=\"Agregar\" value =\"Agregar_renpoligas\">Agregar Movimiento</button> ";
-		$cadena_z = $cadena_z . "<button type=\"submit\" class=\"btn btn-primary\" name=\"Cerrar\" value =\"Cerrar_poligas\">Cerrar Poliza</button> ";
-		$cadena_z = $cadena_z . '<span class="label label-default"> Para Imprimir la Póliza debe Cerrarla Primero </span>\n';
+		$cadena_z = $cadena_z . "<button type=\"submit\" class=\"btn btn-primary\" name=\"modo\" value =\"Agregar_renpogas\">Agregar Movimiento</button> ";
+		$cadena_z = $cadena_z . "<button type=\"submit\" class=\"btn btn-primary\" name=\"modo\" value =\"Cerrar_poligas\">Cerrar Póliza</button> ";
+		$cadena_z = $cadena_z . '<input type="button" class="btn btn-primary" value = "Para Imprimir la Póliza debe Cerrarla Primero">';
 	 } else {
-	 	$cadena_z = $cadena_z . "<input id=\"btn_imprimir\" type=\"submit\" class=\"btn btn-primary\" name=\"Imprimir\" value =\"Imprimir poliza\" target='blank'>";
+	 	$cadena_z = $cadena_z . "<button id=\"btn_imprimir\" type=\"submit\" class=\"btn btn-primary\" modo=\"Imprimir\" value =\"Imprimir poliza\"> <span class=\"glyphicon glyphicon-print\" aria-hidden=\"true\"></span> Imprimir Póliza</button>";
 
 	 }
 	 $cadena_z = $cadena_z . "</form>\n";

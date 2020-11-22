@@ -28,7 +28,7 @@
     var data = {};
     data['idvehiculo'] = vehiculos.value;
 //    data['fechanota'] = fecnota_z.value;
-    var url = "http://localhost/mantove/Pages/Common/busca_datos.php";
+    var url = "../Common/busca_datos.php";
     url += "?idvehiculo="+vehiculos.value;
     url += "&fechanota="+fecnota_z.value;
     url += "&modo=BUSCA_ULTIMO_KMT";
@@ -44,7 +44,7 @@
     var lblserv_z = document.getElementById("lbl_edotoggle");
     var listoggle_z = document.getElementById("edotoggle");
 //    data['fechanota'] = fecnota_z.value;
-    var url = "http://localhost/mantove/Pages/Common/busca_datos.php";
+    var url = "../Common/busca_datos.php";
     url += "?idservmanto="+servicios_z.value;
     url += "&modo=BUSCA_SERVOP";
     $.getJSON(url, function (data) {
@@ -66,7 +66,7 @@
     var vehiculos_z = document.getElementById("idvehiculo");
     var fecnota_z = document.getElementById("fecha");
     var mitabla_z = document.getElementById("tablaproxser");
-    var url = "http://localhost/mantove/Pages/Common/busca_datos.php";
+    var url = "../Common/busca_datos.php";
     url += "?idvehiculo="+vehiculos_z.value;
     url += "&fecha="+fecnota_z.value;
     url += "&modo=BUSCA_SIGSERV";
@@ -138,6 +138,8 @@
   require_once("../Common/componentes.php");
   require_once('../../php/ejecuta_query.php');
   $idpoligas_z = 0;
+  $idrenposer_z = -1;
+  $idpolser_z = -1;
   $accionok_z = "";
   $fechanota_z = date("Y") . "-". date("m") . "-" . date("d");
   $idvehiculo_z = 1;
@@ -147,6 +149,9 @@
 
   if(isset($_POST['modo'])) {
     $accionok_z = $_POST['modo'] . "_ok";
+  } 
+  if(isset($_POST['idrenposer'])) {
+    $idrenposer_z = $_POST['idrenposer'];
   } 
   if(isset($_POST['idpolser'])) {
     $idpolser_z = $_POST['idpolser'];
@@ -166,9 +171,9 @@
 <tr>
 <td  bgcolor= "#00FFFF" align="center">
   <?php 
-  if( $accionok_z  == "eliminar_ok") { 
+  if( $accionok_z  == "eliminar_renglon_ok") { 
      $title_z = "Seguro de Eliminar este Movimiento de  Poliza de Servicio?";
-   } elseif ($accionok_z  == "Cerrar_poligas_ok") {
+   } elseif ($accionok_z  == "Cerrar_polser_ok") {
       $title_z = "Seguro de Cerrar esta Poliza de Servicio?";
    } else { 
      $title_z = "Teclee los datos del movimiento de Poliza de Servicio"; 
@@ -180,7 +185,7 @@
 <tr>
 <td>
 <div class="container">
-<form class="form-inline" role="form"  action="../Polser/servicios_renposer.php" method="post" >
+<form class="form-inline" role="form"  action="servicios_renposer.php" method="post" >
   <div class="form-group">
     <div class="container">
     <?php 
@@ -203,11 +208,13 @@
         $funcion_z = "";
         echo caja_talleres ($idtaller_z, $funcion_z); 
         echo input_en_row("kmtact", "number", "Kilometraje:", $kmtact_z, "4", "");
-        echo input_en_row("importe", "number", "Importe:", $importe_z, "12", ""); 
+         $ff_z = 'min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency"';
+        echo input_en_row("importe", "number", "Importe:", $importe_z, "12", $ff_z); 
         echo caja_zonas ($idzona_z); 
         echo input_en_text("observs", "", "Observaciones:", "observaciones", " rows=\"10\" cols=\"40\" ", ""); 
       }
       $cadena_z = "<input type =\"hidden\" name=\"idpolser\" value=\"". $idpolser_z  . "\" >";
+      $cadena_z = $cadena_z . "<input type =\"hidden\" name=\"idrenposer\" value=\"". $idrenposer_z  . "\" >";
       echo $cadena_z;
 
     ?>
@@ -215,7 +222,7 @@
   <div class="form-group">
     <div class="col-md-12 text-center">
     <button type="submit" name="modo" value="<?php echo $accionok_z; ?>" class="btn btn-primary btn-lg">Aceptar</button>
-    <button type="submit" name="cancelar" class="btn btn-danger" value="cancelar" class="btn btn-primary btn-lg">Cancelar</button>
+    <button type="submit" name="cancelar" value="cancelar" class="btn btn-danger btn-lg">Cancelar</button>
   </div>
   
 </form>
@@ -235,7 +242,7 @@
           <h4 class="modal-title">Proximos Servicios</h4>
         </div>
         <div class="modal-body">
-         <img    style="width:150px" src="http://www.visitmt.com/binaries/medium/content/gallery/MTOT/responsive/hero-f/moose-calf_web.jpg" />
+         <img    style="width:150px" src="../../imagenes/servicio_carro.png" />
          <table border="1" id="tablaproxser">
          <thead>
          <tr>

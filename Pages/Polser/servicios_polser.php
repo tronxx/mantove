@@ -42,7 +42,7 @@
 	} elseif (isset($_POST['cancelar'])) {
 			// SI es cancelar me regreso a la pagina principal
 			echo "<script>";
-			echo "window.location = '../../main.php?menu=polser';";
+			echo "window.location = 'polser.php';";
 			echo "</script>";
 	}
 	
@@ -90,11 +90,12 @@
 		  $idalmacen_z, $fecha_z, $idusuario_z);
         //echo $sql;
 		if ( ! $rs = mysqli_query($conn,$sql) ) {
-			echo "Error: No se pudo agregar registro";
+   			alertas_polser("Error: No se pudo agregar registro");
+	 		manda_a_polser();
 		};
-		$idpoligas_z = $conn->insert_id;
+		$idpolser_z = $conn->insert_id;
 		mysqli_close($conn);
-		//alertas_poligas("Póliza Creada");
+		alertas_polser("Póliza Creada");
 		mostrar_polser($idpolser_z);
 		return (0);
 	}
@@ -105,10 +106,11 @@
 		 $poligas_z, $idpoligas_z);
 		// echo $sql;
 		if ( ! $rs = mysqli_query($conn,$sql) ) {
-			echo "Error: No se pudo agregar registro";
+			alertas_polser("Error: No se pudo eliminar el registro");
+	 		manda_a_polser();
 		};
 		mysqli_close($conn);
-		alertas_poligas("poligas Modificada");
+		alertas_polser("poligas Modificada");
 		return (0);
 	}
 
@@ -118,25 +120,33 @@
 		$sql =  sprintf("delete from polser where idpolser = %s", $idpolser_z);
 		//echo "Sql:" . $sql;
 		if ( ! $rs = mysqli_query($conn,$sql) ) {
-			echo "Error: No se pudo eliminar el registro";
+			alertas_polser("Error: No se pudo eliminar el registro");
+	 		manda_a_polser();
 		};
 		mysqli_close($conn);
 		alertas_polser("Poliza de Servicio Eliminada");
+	 	manda_a_polser();
 		return (0);
 	}
 
 	function alertas_polser($mensaje_z) {
 		echo "<script>";
 		echo "alert(' . $mensaje_z . ');";
-		echo "window.location = '../../index.php?menu=polser';";
+		//echo "window.location = 'polser.php';";
 		echo "</script>";
 	}
 
+	function manda_a_polser() {
+		$cadena_z = "<script>";
+		$cadena_z = $cadena_z . "window.location = 'polser.php';";
+		$cadena_z = $cadena_z .  "</script>";
+		echo $cadena_z;
+	}
+
+
 	function mostrar_polser($idpolser_z) {
-		$fecha_z = "2018-07-01";
 		$cadena_z = "<form action=\"renposer.php\" name=\"renposer\" id=\"renposer\" method=\"post\">";
-		$cadena_z = $cadena_z . "<input type =\"hidden\" name=\"idpoligas\" value=\"". $idpolser_z  . "\" >";
-		$cadena_z = $cadena_z . "<input type =\"hidden\" name=\"fecha\" value=\"". $fecha_z  . "\" >";
+		$cadena_z = $cadena_z . "<input type =\"hidden\" name=\"idpolser\" value=\"". $idpolser_z  . "\" >";
 		$cadena_z = $cadena_z . "<button type=\"submit\" class=\"btn btn-primary\"  name=\"modo\" value=\"modificar\" >Visualizar</button>";
 		$cadena_z = $cadena_z . "</form>";
 		$cadena_z = $cadena_z . "<script type=\"text/javascript\"> 

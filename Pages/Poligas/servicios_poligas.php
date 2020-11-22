@@ -128,7 +128,7 @@
 	function alertas_poligas($mensaje_z) {
 		echo "<script>";
 		echo "alert(' . $mensaje_z . ');";
-		echo "window.location = '../../index.php?menu=poligas';";
+		echo "window.location = 'poligas.php';";
 		echo "</script>";
 	}
 

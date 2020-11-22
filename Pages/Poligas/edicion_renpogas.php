@@ -155,7 +155,7 @@
 <tr>
 <td>
 <div class="container">
-<form class="form-inline" role="form"  action="../Poligas/servicios_renpogas.php" method="post" >
+<form class="form-inline" role="form"  action="servicios_renpogas.php" method="post" >
   <div class="form-group">
     <div class="container">
     <?php 
@@ -180,7 +180,7 @@
         echo input_en_row("kmtant", "number", "Kilometraje Anterior:", $kmtant_z, "4"," readonly ");
         echo input_en_row("kmtact", "number", "Kilometraje Actual:", $kmtact_z, "4", " onchange=\"actualiza_recorre()\" ");
         echo input_en_row("recorr", "number", "Recorrido:", $kmtant_z, "4", " readonly "); 
-              $ff_z = 'min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency"  onchange="actualiza_litros()" ';
+        $ff_z = 'min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency"  onchange="actualiza_litros()" ';
 
         echo input_en_row("importe", "number", "Importe:", $importe_z, "12", $ff_z); 
         echo input_en_row("litros", "number", "Litros:", $litros_z, "12", " readonly "); 

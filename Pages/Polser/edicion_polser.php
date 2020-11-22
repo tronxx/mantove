@@ -30,7 +30,7 @@
   $idalmacen_z = 0;
   $idpoligas_z = 0;
   $accionok_z = "";
-  $fecha_z = date("Y") . "-". date("m") . "-" . date("d");
+  $fecha_z = date("Y-m-d");
   if(isset($_POST['modo'])) {
     $accionok_z = $_POST['modo'] . "_ok";
   } 
@@ -76,7 +76,7 @@
   <div class="form-group">
     <div class="col-md-12 text-center">
     <button type="submit" name="modo" value="<?php echo $accionok_z; ?>" class="btn btn-primary btn-lg">Aceptar</button>
-    <button type="submit" name="cancelar" class="btn btn-danger" value="cancelar" class="btn btn-primary btn-lg">Cancelar</button>
+    <button type="submit" name="cancelar" value="cancelar" class="btn btn-danger btn-lg">Cancelar</button>
   </div>
   </div>
 </form>

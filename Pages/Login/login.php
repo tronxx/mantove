@@ -36,7 +36,7 @@
 			<input type="hidden" name="entrar" value="entrar">
 			<button class="w3-btn w3-green">Aceptar</button>
 		</p>
-		<p>Si aún no tienes cuenta ve al siguiente link <a href="xregistrarse.php">Registrarse</a></p>
+
 	</form>
 <footer>
 	<div class="w3-container w3-black">

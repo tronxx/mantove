@@ -1,4 +1,5 @@
 <?php 
+  date_default_timezone_set("America/Mexico_City");
   require_once('../Ciudades/servicios_ciudades.php');
   require_once('../TipoVehiculos/servicios_tipovehiculos.php');
   require_once('../Almacenes/servicios_almacenes.php');
